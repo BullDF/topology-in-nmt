@@ -1,0 +1,56 @@
+\begin{thebibliography}{10}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bianchini and Scarselli(2014)]{bianchini}
+Monica Bianchini and Franco Scarselli.
+\newblock On the complexity of neural network classifiers: A comparison between shallow and deep architectures.
+\newblock \emph{IEEE Transactions on Neural Networks and Learning Systems}, 25\penalty0 (8):\penalty0 1553--1565, 2014.
+
+\bibitem[Draganov and Skiena(2024)]{draganov}
+Ond{\v{r}}ej Draganov and Steven Skiena.
+\newblock The shape of word embeddings: Quantifying non-isometry with topological data analysis.
+\newblock In \emph{Findings of the Association for Computational Linguistics: EMNLP 2024}, pages 12080--12099, Miami, Florida, USA, November 2024. Association for Computational Linguistics.
+
+\bibitem[Fitz(2022)]{fitz}
+Stephen Fitz.
+\newblock The shape of words - topological structure in natural language data.
+\newblock In \emph{Proceedings of Topological, Algebraic, and Geometric Learning Workshops 2022}, volume 196 of \emph{Proceedings of Machine Learning Research}, pages 116--123. PMLR, 25 Feb--22 Jul 2022.
+
+\bibitem[Guss and Salakhutdinov(2018)]{guss}
+William~H. Guss and Ruslan Salakhutdinov.
+\newblock On characterizing the capacity of neural networks using algebraic topology.
+\newblock \emph{CoRR}, abs/1802.04443, 2018.
+
+\bibitem[Haim~Meirom and Bobrowski(2022)]{meirom}
+Shaked Haim~Meirom and Omer Bobrowski.
+\newblock Unsupervised geometric and topological approaches for cross-lingual sentence representation and comparison.
+\newblock In \emph{Proceedings of the 7th Workshop on Representation Learning for NLP}, pages 173--183, Dublin, Ireland, May 2022. Association for Computational Linguistics.
+
+\bibitem[Kushnareva et~al.(2021)Kushnareva, Cherniavskii, Mikhailov, Artemova, Barannikov, Bernstein, Piontkovskaya, Piontkovski, and Burnaev]{kushnareva}
+Laida Kushnareva, Daniil Cherniavskii, Vladislav Mikhailov, Ekaterina Artemova, Serguei Barannikov, Alexander Bernstein, Irina Piontkovskaya, Dmitri Piontkovski, and Evgeny Burnaev.
+\newblock Artificial text detection via examining the topology of attention maps.
+\newblock In \emph{Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing}, pages 635--649, Online and Punta Cana, Dominican Republic, November 2021. Association for Computational Linguistics.
+
+\bibitem[Ravishankar et~al.(2021)Ravishankar, Kulmizev, Abdou, S{\o }gaard, and Nivre]{ravishankar}
+Vinit Ravishankar, Artur Kulmizev, Mostafa Abdou, Anders S{\o }gaard, and Joakim Nivre.
+\newblock Attention can reflect syntactic structure (if you let it).
+\newblock In \emph{Proceedings of the 16th Conference of the European Chapter of the Association for Computational Linguistics: Main Volume}, pages 3031--3045, Online, April 2021. Association for Computational Linguistics.
+
+\bibitem[Team et~al.(2022)Team, Costa-jussà, Cross, Çelebi, Elbayad, Heafield, Heffernan, Kalbassi, Lam, Licht, Maillard, Sun, Wang, Wenzek, Youngblood, Akula, Barrault, Gonzalez, Hansanti, Hoffman, Jarrett, Sadagopan, Rowe, Spruit, Tran, Andrews, Ayan, Bhosale, Edunov, Fan, Gao, Goswami, Guzmán, Koehn, Mourachko, Ropers, Saleem, Schwenk, and Wang]{nllb}
+NLLB Team, Marta~R. Costa-jussà, James Cross, Onur Çelebi, Maha Elbayad, Kenneth Heafield, Kevin Heffernan, Elahe Kalbassi, Janice Lam, Daniel Licht, Jean Maillard, Anna Sun, Skyler Wang, Guillaume Wenzek, Al~Youngblood, Bapi Akula, Loic Barrault, Gabriel~Mejia Gonzalez, Prangthip Hansanti, John Hoffman, Semarley Jarrett, Kaushik~Ram Sadagopan, Dirk Rowe, Shannon Spruit, Chau Tran, Pierre Andrews, Necip~Fazil Ayan, Shruti Bhosale, Sergey Edunov, Angela Fan, Cynthia Gao, Vedanuj Goswami, Francisco Guzmán, Philipp Koehn, Alexandre Mourachko, Christophe Ropers, Safiyyah Saleem, Holger Schwenk, and Jeff Wang.
+\newblock No language left behind: Scaling human-centered machine translation, 2022.
+
+\bibitem[Uchendu and Le(2025)]{uchendu}
+Adaku Uchendu and Thai Le.
+\newblock Unveiling topological structures from language: A comprehensive survey of topological data analysis applications in nlp, 2025.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin]{vaswani}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan~N Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In \emph{Advances in Neural Information Processing Systems}, volume~30. Curran Associates, Inc., 2017.
+
+\end{thebibliography}
