@@ -214,3 +214,6 @@ CLAUDE.md
 
 # Research papers (not tracked in version control)
 literature/
+
+# Dataset files (too large for version control)
+data/
