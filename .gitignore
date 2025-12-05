@@ -209,8 +209,9 @@ __marimo__/
 # macOS
 .DS_Store
 
-# Claude Code project instructions
+# Claude Code project instructions and summaries
 CLAUDE.md
+PROJECT_SUMMARY.md
 
 # Research papers (not tracked in version control)
 literature/
