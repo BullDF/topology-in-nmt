@@ -15,10 +15,15 @@ import pickle
 from tqdm import tqdm
 import time
 import argparse
+import warnings
 
 # TDA libraries (Scikit-TDA)
 from ripser import ripser
 from persim import wasserstein
+
+# Suppress warnings about infinite death times in persistence diagrams
+# (This is expected for H0 diagrams - one component persists forever)
+warnings.filterwarnings('ignore', message='.*non-finite death times.*')
 
 
 def build_distance_matrix(attention, tokens, layer=-1, filter_special=True):
