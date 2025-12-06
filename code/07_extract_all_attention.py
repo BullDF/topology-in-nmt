@@ -102,12 +102,13 @@ def main():
     print()
 
     # Load model and tokenizer
-    model_path = "../models/nllb-600M"
+    model_path = Path("../models/nllb-600M").resolve()
     print(f"Loading model from {model_path}...")
-    tokenizer = AutoTokenizer.from_pretrained(model_path)
+    tokenizer = AutoTokenizer.from_pretrained(str(model_path), local_files_only=True)
     model = AutoModelForSeq2SeqLM.from_pretrained(
-        model_path,
-        attn_implementation="eager"  # Required for extracting attention weights
+        str(model_path),
+        attn_implementation="eager",  # Required for extracting attention weights
+        local_files_only=True
     ).to(device)
     model.eval()
     print("✓ Model loaded successfully!")
