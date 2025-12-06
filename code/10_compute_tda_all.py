@@ -5,8 +5,6 @@ For each sentence pair:
 1. Build distance matrices from English and French encoder attention
 2. Compute Vietoris-Rips persistent homology (β₀, β₁)
 3. Calculate Wasserstein distance between English and French persistence diagrams
-
-Saves results with checkpointing to avoid data loss.
 """
 
 import numpy as np
@@ -124,14 +122,6 @@ def compute_persistence_and_wasserstein(en_attention, en_tokens, fr_attention, f
     }
 
 
-def save_checkpoint(results, output_path, checkpoint_num):
-    """Save checkpoint to avoid losing progress."""
-    checkpoint_path = output_path.parent / f"{output_path.stem}_checkpoint_{checkpoint_num}.pkl"
-    with open(checkpoint_path, 'wb') as f:
-        pickle.dump(results, f)
-    print(f"  💾 Checkpoint saved: {checkpoint_path.name}")
-
-
 def main():
     # Parse command line arguments
     parser = argparse.ArgumentParser(description='Compute TDA metrics for all sentence pairs')
@@ -141,8 +131,6 @@ def main():
                         help='Filter out special tokens (default: True)')
     parser.add_argument('--no-filter-special', dest='filter_special', action='store_false',
                         help='Do not filter special tokens')
-    parser.add_argument('--checkpoint-interval', type=int, default=100,
-                        help='Save checkpoint every N examples (default: 100)')
     args = parser.parse_args()
 
     print("=" * 80)
@@ -151,7 +139,6 @@ def main():
     print(f"Configuration:")
     print(f"  Layer: {args.layer} ({'last layer' if args.layer == -1 else f'layer {args.layer}'})")
     print(f"  Filter special tokens: {args.filter_special}")
-    print(f"  Checkpoint interval: {args.checkpoint_interval}")
     print()
 
     # Configuration
@@ -176,27 +163,14 @@ def main():
     print(f"✓ Loaded {len(attention_data)} sentence pairs")
     print()
 
-    # Check for existing checkpoint to resume from
-    start_idx = 0
-    results = []
-    checkpoint_files = sorted(OUTPUT_DIR.glob(f"{OUTPUT_FILE.stem}_checkpoint_*.pkl"))
-    if checkpoint_files:
-        latest_checkpoint = checkpoint_files[-1]
-        print(f"Found checkpoint: {latest_checkpoint.name}")
-        with open(latest_checkpoint, 'rb') as f:
-            results = pickle.load(f)
-        start_idx = len(results)
-        print(f"✓ Resuming from example {start_idx}")
-        print()
-
     # Process all sentence pairs
+    results = []
     print(f"Computing TDA metrics for {len(attention_data)} sentence pairs...")
-    print(f"Progress will be saved every {args.checkpoint_interval} examples")
     print()
 
     start_time = time.time()
 
-    for idx in tqdm(range(start_idx, len(attention_data)), desc="Processing", unit="pair"):
+    for idx in tqdm(range(len(attention_data)), desc="Processing", unit="pair"):
         example = attention_data[idx]
 
         try:
@@ -219,10 +193,6 @@ def main():
                 'fr_translation': example['fr_translation'],
                 **tda_metrics
             })
-
-            # Save checkpoint periodically
-            if (idx + 1) % args.checkpoint_interval == 0:
-                save_checkpoint(results, OUTPUT_FILE, idx + 1)
 
         except Exception as e:
             print(f"\n⚠️  Error processing pair {idx}: {e}")
@@ -272,14 +242,6 @@ def main():
     print(f"H1 Features (β₁):")
     print(f"  English - Mean: {np.mean(h1_counts_en):.1f}, Max: {np.max(h1_counts_en)}")
     print(f"  French  - Mean: {np.mean(h1_counts_fr):.1f}, Max: {np.max(h1_counts_fr)}")
-    print()
-
-    # Clean up checkpoint files
-    print("Cleaning up checkpoint files...")
-    for checkpoint_file in OUTPUT_DIR.glob(f"{OUTPUT_FILE.stem}_checkpoint_*.pkl"):
-        checkpoint_file.unlink()
-        print(f"  🗑️  Removed {checkpoint_file.name}")
-
     print()
     print("=" * 80)
     print("✅ All done!")
