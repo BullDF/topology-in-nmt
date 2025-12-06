@@ -82,18 +82,6 @@ def main():
     print("=" * 80)
     print("Extracting Encoder Attention Maps for All 2000 Sentence Pairs")
     print("=" * 80)
-    print()
-
-    # Verify we're in the correct directory
-    if not Path("../models/nllb-600M").exists():
-        print("ERROR: Model directory not found!")
-        print("Please run this script from the 'code/' directory:")
-        print("  cd code")
-        print("  python3 07_extract_all_attention.py")
-        return
-
-    print(f"Current directory: {Path.cwd()}")
-    print()
 
     # Configuration
     CHECKPOINT_INTERVAL = 100  # Save checkpoint every N examples
