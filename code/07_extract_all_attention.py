@@ -82,6 +82,18 @@ def main():
     print("=" * 80)
     print("Extracting Encoder Attention Maps for All 2000 Sentence Pairs")
     print("=" * 80)
+    print()
+
+    # Verify we're in the correct directory
+    if not Path("../models/nllb-600M").exists():
+        print("ERROR: Model directory not found!")
+        print("Please run this script from the 'code/' directory:")
+        print("  cd code")
+        print("  python3 07_extract_all_attention.py")
+        return
+
+    print(f"Current directory: {Path.cwd()}")
+    print()
 
     # Configuration
     CHECKPOINT_INTERVAL = 100  # Save checkpoint every N examples
@@ -102,13 +114,12 @@ def main():
     print()
 
     # Load model and tokenizer
-    model_path = Path("../models/nllb-600M").resolve()
+    model_path = "../models/nllb-600M"
     print(f"Loading model from {model_path}...")
-    tokenizer = AutoTokenizer.from_pretrained(str(model_path), local_files_only=True)
+    tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = AutoModelForSeq2SeqLM.from_pretrained(
-        str(model_path),
-        attn_implementation="eager",  # Required for extracting attention weights
-        local_files_only=True
+        model_path,
+        attn_implementation="eager"  # Required for extracting attention weights
     ).to(device)
     model.eval()
     print("✓ Model loaded successfully!")
