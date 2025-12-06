@@ -86,7 +86,7 @@ def main():
     # Configuration
     CHECKPOINT_INTERVAL = 100  # Save checkpoint every N examples
     OUTPUT_DIR = Path("../data/attention_maps")
-    OUTPUT_DIR.mkdir(exist_ok=True)
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     OUTPUT_FILE = OUTPUT_DIR / "all_encoder_attention.pkl"
 
     # Device setup
