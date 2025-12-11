@@ -57,9 +57,9 @@ print("Saving dataset to disk...")
 print("=" * 60)
 
 os.makedirs("../data", exist_ok=True)
-validation_data.save_to_disk("../data/wmt17_en-zh_validation_2000")
+validation_data.save_to_disk("../data/wmt17_zh_en_validation_2000")
 
-print("✓ Saved validation subset to: ../data/wmt17_en-zh_validation_2000")
+print("✓ Saved validation subset to: ../data/wmt17_zh_en_validation_2000")
 
 print("\n" + "=" * 60)
 print("SUCCESS! Data is ready to use.")

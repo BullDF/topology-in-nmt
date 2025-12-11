@@ -142,8 +142,8 @@ def main():
     print()
 
     # Configuration
-    INPUT_PATH = Path("../data/attention_maps/all_encoder_attention.pkl")
-    OUTPUT_DIR = Path("../data/tda_results")
+    INPUT_PATH = Path("../data/attention_maps_fr_en/all_encoder_attention.pkl")
+    OUTPUT_DIR = Path("../data/tda_results_fr_en")
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     # Create output filename based on configuration

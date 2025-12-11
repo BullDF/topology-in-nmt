@@ -51,8 +51,8 @@ def main():
     print()
 
     # Load TDA results (contains translations)
-    INPUT_PATH = Path("../data/tda_results/tda_results_last_layer_filtered.pkl")
-    OUTPUT_PATH = Path("../data/bleu_scores.csv")
+    INPUT_PATH = Path("../data/tda_results_fr_en/tda_results_last_layer_filtered.pkl")
+    OUTPUT_PATH = Path("../data/bleu_scores_fr_en.csv")
 
     print(f"Input:  {INPUT_PATH}")
     print(f"Output: {OUTPUT_PATH}")
