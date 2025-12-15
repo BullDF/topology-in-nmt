@@ -2,7 +2,7 @@
 Compute persistent homology and Wasserstein distances for all 2000 sentence pairs.
 
 For each sentence pair:
-1. Build distance matrices from English and Chinese encoder attention
+1. Build distance matrices from English and Chinese encoder attention (last layer only)
 2. Compute Vietoris-Rips persistent homology (β₀, β₁)
 3. Calculate Wasserstein distance between English and Chinese persistence diagrams
 """
@@ -24,22 +24,21 @@ from persim import wasserstein
 warnings.filterwarnings('ignore', message='.*non-finite death times.*')
 
 
-def build_distance_matrix(attention, tokens, layer=-1, filter_special=True):
+def build_distance_matrix(attention, tokens, filter_special=True):
     """
-    Build distance matrix from attention weights.
+    Build distance matrix from attention weights (last layer only).
 
     Args:
-        attention: Attention tensor (num_layers, num_heads, seq_len, seq_len)
+        attention: Attention tensor (num_heads, seq_len, seq_len) - LAST LAYER ONLY
         tokens: List of token strings
-        layer: Which layer to use (-1 for last layer, or 0-11 for specific layer)
         filter_special: Whether to filter out special tokens
 
     Returns:
         distance_matrix: (N, N) array where N = number of tokens (or content tokens if filtered)
         filtered_tokens: List of token strings (content tokens if filtered, all tokens otherwise)
     """
-    # 1. Extract specified layer and average over heads
-    attn = attention[layer].mean(axis=0)  # (seq_len, seq_len)
+    # 1. Average over heads (attention is already last layer only)
+    attn = attention.mean(axis=0)  # (seq_len, seq_len)
 
     # 2. Filter special tokens (optional)
     if filter_special:
@@ -76,24 +75,23 @@ def build_distance_matrix(attention, tokens, layer=-1, filter_special=True):
 
 
 def compute_persistence_and_wasserstein(en_attention, en_tokens, zh_attention, zh_tokens,
-                                        layer=-1, filter_special=True):
+                                        filter_special=True):
     """
     Compute persistent homology and Wasserstein distance for a sentence pair.
 
     Args:
-        en_attention: English encoder attention (num_layers, num_heads, seq_len, seq_len)
+        en_attention: English encoder attention (num_heads, seq_len, seq_len) - LAST LAYER ONLY
         en_tokens: English token list
-        zh_attention: Chinese encoder attention (num_layers, num_heads, seq_len, seq_len)
+        zh_attention: Chinese encoder attention (num_heads, seq_len, seq_len) - LAST LAYER ONLY
         zh_tokens: Chinese token list
-        layer: Which layer to use
         filter_special: Whether to filter special tokens
 
     Returns:
         dict with Wasserstein distances and persistence diagrams
     """
     # Build distance matrices
-    en_dist, en_filtered_tokens = build_distance_matrix(en_attention, en_tokens, layer, filter_special)
-    zh_dist, zh_filtered_tokens = build_distance_matrix(zh_attention, zh_tokens, layer, filter_special)
+    en_dist, en_filtered_tokens = build_distance_matrix(en_attention, en_tokens, filter_special)
+    zh_dist, zh_filtered_tokens = build_distance_matrix(zh_attention, zh_tokens, filter_special)
 
     # Compute persistence using ripser
     en_result = ripser(en_dist, maxdim=1, distance_matrix=True)
@@ -125,8 +123,6 @@ def compute_persistence_and_wasserstein(en_attention, en_tokens, zh_attention, z
 def main():
     # Parse command line arguments
     parser = argparse.ArgumentParser(description='Compute TDA metrics for all sentence pairs')
-    parser.add_argument('--layer', type=int, default=-1,
-                        help='Which encoder layer to use (-1 for last layer, 0-11 for specific layer)')
     parser.add_argument('--filter-special', action='store_true', default=True,
                         help='Filter out special tokens (default: True)')
     parser.add_argument('--no-filter-special', dest='filter_special', action='store_false',
@@ -137,19 +133,18 @@ def main():
     print("Computing Persistent Homology and Wasserstein Distances")
     print("=" * 80)
     print(f"Configuration:")
-    print(f"  Layer: {args.layer} ({'last layer' if args.layer == -1 else f'layer {args.layer}'})")
+    print(f"  Using last encoder layer only (layer 23 out of 24)")
     print(f"  Filter special tokens: {args.filter_special}")
     print()
 
     # Configuration
-    INPUT_PATH = Path("../data/attention_maps_zh_en/all_encoder_attention.pkl")
+    INPUT_PATH = Path("../data/attention_maps_zh_en/all_encoder_attention_last_layer.pkl")
     OUTPUT_DIR = Path("../data/tda_results_zh_en")
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     # Create output filename based on configuration
-    layer_str = f"layer{args.layer}" if args.layer >= 0 else "last_layer"
     filter_str = "filtered" if args.filter_special else "unfiltered"
-    OUTPUT_FILE = OUTPUT_DIR / f"tda_results_{layer_str}_{filter_str}.pkl"
+    OUTPUT_FILE = OUTPUT_DIR / f"tda_results_last_layer_{filter_str}.pkl"
 
     print(f"Input: {INPUT_PATH}")
     print(f"Output: {OUTPUT_FILE}")
@@ -157,7 +152,7 @@ def main():
 
     # Load attention data
     print(f"Loading attention data from {INPUT_PATH}...")
-    print(f"File size: {INPUT_PATH.stat().st_size / (1024**3):.2f} GB")
+    print(f"File size: {INPUT_PATH.stat().st_size / (1024**2):.2f} MB")
     with open(INPUT_PATH, 'rb') as f:
         attention_data = pickle.load(f)
     print(f"✓ Loaded {len(attention_data)} sentence pairs")
@@ -180,7 +175,6 @@ def main():
                 en_tokens=example['en_tokens'],
                 zh_attention=example['zh_attention'],
                 zh_tokens=example['zh_tokens'],
-                layer=args.layer,
                 filter_special=args.filter_special
             )
 
