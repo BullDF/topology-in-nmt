@@ -2,11 +2,9 @@
 // Equivalent to your standard LaTeX article template
 
 // Variables (like \newcommand for assignment details)
-#let assignmentname = "Topology in Neural Machine Translation: A Topological
-Study of Transformers through Attention"
+#let assignmentname = "Topology in Neural Machine Translation: A Topological Study of Transformers through Attention"
 #let shortassignmentname = "Topology in Neural Machine Translation"
 #let duedate = "23 Dec 2025"
-#let authorname = "Yuwei (Johnny) Meng"
 
 // Page setup - equivalent to geometry package
 #set page(
@@ -21,7 +19,7 @@ Study of Transformers through Attention"
       #grid(
         columns: (1fr, 2fr, 1fr),
         align: (left, center, right),
-        [#duedate], [#shortassignmentname], [Your Name],
+        [#duedate], [#shortassignmentname], [Johnny Meng],
       )
       #v(-1.5em)
       #line(length: 100%, stroke: 0.5pt)
@@ -83,7 +81,7 @@ Study of Transformers through Attention"
   #v(0.5em)
 
   #text(size: 14pt)[
-    #authorname
+    Yuwei (Johnny) Meng
   ]
 
   #v(0.3em)
