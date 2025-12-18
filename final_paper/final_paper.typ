@@ -127,7 +127,7 @@ Realistically, given a collection of $n$-dimensional points in $bb(R)^n$, we wou
 
 Notice that as the radius $r$ increases, more and more edges would be connected, leading to emergence and disappearance of topological features. We thus can characterize these topological features by their emergence time and disappearance time, or birth time and death time using standard topology terminology. For instance, recall our previous example concerning points $x_1$ and $x_2$. If a 1-dimensional hole $alpha$ emerges because of the addition of the edge between them at $r_1$, then we would say that $alpha$ has a birth time of $r_1$. Similarly, if at some later radius $r_2 > r_1$ that $alpha$ disappears because of adding another edge in the simplicial complex, then we would denote $r_2$ as the death time of $alpha$.
 
-_#ref(<filtration>)_ below shows a visualization of computing persistent homology using the method described above on a set of points in $bb(R)^2 $. The left figure shows the sequence of radii increasing from $0 $ to $6.15 $, along which edges are added to the simplicial complex. Note that at $r = 5.6 $, the addition of the edge between $p_1 $ and $p_3 $ make the simplicial complex into a quadrilateral, which results in a 1-dimensional hole. Subsequently, at $r= 6.15 $, the quadrilateral is destroyed by the edge between $p_1 $ and $p_4 $, causing the 1-dimensional hole to disappear. The simplicial complex constructed by increasing the radius $r $ is called a _filtration_. On the other hand, the right figure shows the persistence diagram of this filtration. Note that the 1-dimensional feature described previously corresponds to the orange point at $(5.6, 6.15) $ in the persistence diagram.
+_#ref(<filtration>)_ below shows a visualization of computing persistent homology using the method described above on a set of points in $bb(R)^2$. The left figure shows the sequence of radii increasing from $0$ to $6.15$, along which edges are added to the simplicial complex. Note that at $r = 5.6$, the addition of the edge between $p_1$ and $p_3$ make the simplicial complex into a quadrilateral, which results in a 1-dimensional hole. Subsequently, at $r= 6.15$, the quadrilateral is destroyed by the edge between $p_1$ and $p_4$, causing the 1-dimensional hole to disappear. The simplicial complex constructed by increasing the radius $r$ is called a _filtration_. On the other hand, the right figure shows the persistence diagram of this filtration. Note that the 1-dimensional feature described previously corresponds to the orange point at $(5.6, 6.15)$ in the persistence diagram.
 
 #figure(
   grid(
@@ -137,6 +137,18 @@ _#ref(<filtration>)_ below shows a visualization of computing persistent homolog
   ),
   caption: [Visualization of Vietoris-Rips filtration on a set of points in $bb(R)^2$.],
 ) <filtration>
+
+Now given two sets of points, we can compute separately their persistence diagrams using persistent homology, but we need a metric to compare the two persistence diagrams. _Wasserstein distance_ is the most common metric for this task. Given persistence diagrams $D_1$ and $D_2$, Wasserstein distance finds the best bijection between points in $D_1$ and $D_2$ and computes the sum of distances between matched points. Formally, let $p$ be a fixed dimension. The $p$-Wasserstein distance between $D_1$ and $D_2$ is defined as:
+
+$
+  W_p (D_1, D_2) = inf_(phi.alt: D_1 arrow.r D_2) (sum_(x in D_1) ||x - phi.alt(x)||^p)^(1 slash p).
+$
+
+The Wasserstein distance between $D_1 $ and $D_2 $ is thus:
+
+$
+  W(D_1, D_2) = sum_(n=0)^infinity W_n (D_1, D_2).
+$
 
 = Related Work
 
