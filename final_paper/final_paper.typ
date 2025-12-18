@@ -54,6 +54,10 @@
 // Heading numbering
 #set heading(numbering: "1.")
 
+// List settings
+#set list(indent: 1.5em)
+#set enum(indent: 1.5em)
+
 // Heading spacing
 #show heading: it => {
   set block(above: 1.5em, below: 1.5em)
