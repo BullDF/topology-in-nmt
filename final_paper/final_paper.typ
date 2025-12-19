@@ -198,7 +198,17 @@ Lastly, we would like to see if topological differences in attention maps can be
 
 = Results & Discussion
 
+== Topology
+
+== Translation Quality
+
+== Correlation Analysis
+
+== Error Analysis
+
 = Conclusion
+
+= Acknowledgements
 
 // For bibliography, uncomment and create bib.bib file:
 #pagebreak()
