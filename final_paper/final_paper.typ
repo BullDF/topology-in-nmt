@@ -198,13 +198,22 @@ Lastly, we would like to see if topological differences in attention maps can be
 
 = Results & Discussion
 
-== Topology
+This section presents the topological findings from the experiment described above. _#ref(<sec:topology_results>)_ shows the analysis of attention maps using Wasserstein distance, delving into whether transformer models attend to sentences of different languages differently. Next, _#ref(<sec:translation_quality>)_ presents some insights into the translation quality of the NMT system used in this study. Then, _#ref(<sec:correlation_analysis>)_ combines the results from _#ref(<sec:topology_results>)_ and _#ref(<sec:translation_quality>)_ and conducts correlation analysis to see if topological differences and translation quality are correlated. Lastly, _#ref(<sec:error_analysis>)_ concludes this section by suggesting some possible explanations for the observed results, further enhancing the interpretability of the findings.
 
-== Translation Quality
+== Topology <sec:topology_results>
 
-== Correlation Analysis
+Before analyzing the topological features in the attention maps, let's examine a typical attention map. _#ref(<fig:attention_example>)_ below shows the averaged self-attention in the last layer of the encoder for an English sentence. From the plot, note that the NLLB model creates a language tag at the beginning of the sentence, as well as an end-of-sentence (EOS) tag at the end of the sentence. Further notice that the EOS column of the plot has a very light color, meaning that every token in the sentence seems to attend strongly to the EOS token. This phenomenon suggests that the model considers the EOS token to be very important when encoding the sentence, perhaps using it as a scratchpad to store information about the entire sentence. The pattern is also present for the language tag, but not as strong as EOS. However, since we are analyzing how the NMT model understands the sentence, not byproducts of the translation process, these special tags are removed and the remaining attention weights are renormalized to 1 for the topological analysis.
 
-== Error Analysis
+#figure(
+  image("images/attention_example.png"),
+  caption: [Attention map for the sentence "A Republican strategy to counter the re-election of Obama".],
+) <fig:attention_example>
+
+== Translation Quality <sec:translation_quality>
+
+== Correlation Analysis <sec:correlation_analysis>
+
+== Error Analysis <sec:error_analysis>
 
 = Conclusion
 
