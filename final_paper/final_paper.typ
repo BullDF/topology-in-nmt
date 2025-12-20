@@ -228,6 +228,34 @@ With the distance matrix, the persistence diagram of this attention map can be c
   placement: auto
 ) <fig:persistence_diagrams>
 
+_#ref(<tab:summary_stats>)_ below shows the summary statistics for the metrics computed for both the French-English and Chinese-English datasets. The table presents the minimum, maximum, mean, and median values for Wasserstein distances, token counts, and topological features across the 2,000 sentence pairs for each language pair. From the table, note that the majority of topological differences between languages seem to stem from zeroth-order topological features, as we can see that first-order topological features only contribute to smaller than 1.0 Wasserstein distance on average for both datasets. This discovery aligns with the previous observation that first-order topological features are rare in attention maps. Furthermore, the French sentences in our dataset are generally longer than their English counterparts, but the Chinese sentences have about the same number of tokens as their English counterparts. Nevertheless, the model still generates more $H_1 $ features for Chinese sentences than for English sentences on average, indicating that the model attends to Chinese sentences in a more complex manner.
+
+#figure(
+  table(
+    columns: (auto, auto, auto, auto, auto),
+    align: (left, right, right, right, right),
+    [*Metric*], [*Min*], [*Max*], [*Mean*], [*Median*],
+    table.cell(colspan: 5, align: center, [*French-English*]),
+    [Wasserstein Distance (Total)], [0.0], [40.9], [5.0], [4.1],
+    [Wasserstein Distance ($H_0$)], [0.0], [40.3], [5.0], [4.1],
+    [Wasserstein Distance ($H_1$)], [0.0], [0.5], [0.1], [0.0],
+    [Token Count ($H_0$ Features) (English)], [1], [117], [24.7], [22],
+    [Token Count ($H_0$ Features) (French)], [2], [177], [31.7], [28],
+    [$H_1$ Features (English)], [0], [51], [4.6], [3],
+    [$H_1$ Features (French)], [0], [78], [5.7], [4],
+    table.cell(colspan: 5, align: center, [*Chinese-English*]),
+    [Wasserstein Distance (Total)], [0.2], [26.6], [4.4], [3.5],
+    [Wasserstein Distance ($H_0$)], [0.2], [26.2], [4.2], [3.3],
+    [Wasserstein Distance ($H_1$)], [0.0], [0.7], [0.1], [0.1],
+    [Token Count ($H_0$ Features) (English)], [2], [109], [36.0], [35],
+    [Token Count ($H_0$ Features) (Chinese)], [4], [111], [36.2], [35],
+    [$H_1$ Features (English)], [0], [41], [8.4], [8],
+    [$H_1$ Features (Chinese)], [0], [67], [12.6], [11],
+  ),
+  caption: [Summary statistics for topological metrics computed on the French-English and Chinese-English datasets (2,000 sentence pairs each).],
+  placement: auto
+) <tab:summary_stats> 
+
 == Translation Quality <sec:translation_quality>
 
 == Correlation Analysis <sec:correlation_analysis>
