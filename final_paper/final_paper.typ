@@ -202,12 +202,19 @@ This section presents the topological findings from the experiment described abo
 
 == Topology <sec:topology_results>
 
-Before analyzing the topological features in the attention maps, let's examine a typical attention map. _#ref(<fig:attention_example>)_ below shows the averaged self-attention in the last layer of the encoder for an English sentence. From the plot, note that the NLLB model creates a language tag at the beginning of the sentence, as well as an end-of-sentence (EOS) tag at the end of the sentence. Further notice that the EOS column of the plot has a very light color, meaning that every token in the sentence seems to attend strongly to the EOS token. This phenomenon suggests that the model considers the EOS token to be very important when encoding the sentence, perhaps using it as a scratchpad to store information about the entire sentence. The pattern is also present for the language tag, but not as strong as EOS. However, since we are analyzing how the NMT model understands the sentence, not byproducts of the translation process, these special tags are removed and the remaining attention weights are renormalized to 1 for the topological analysis.
+Before analyzing the topological features in the attention maps, let's examine a typical attention map. The left plot of _#ref(<fig:attention_example>)_ below shows the averaged self-attention in the last layer of the encoder for an English sentence. From the plot, note that the NLLB model creates a language tag at the beginning of the sentence, as well as an end-of-sentence (EOS) tag at the end of the sentence. Further notice that the EOS column of the plot has a very light color, meaning that every token in the sentence seems to attend strongly to the EOS token. This phenomenon suggests that the model considers the EOS token to be very important, perhaps using it as a scratchpad to store information about the entire sentence. The pattern is also present for the language tag, but not as strong as EOS. However, since we are analyzing how the NMT model understands the sentence, not byproducts of the translation process, these special tags are removed and the remaining attention weights are renormalized to 1 for the topological analysis. The middle plot of _#ref(<fig:attention_example>)_ shows the attention map after filtering and renormalization. Additionally, the right plot of _#ref(<fig:attention_example>)_ shows the distance matrix of the sentence, where each distance has the value of $1 - alpha$, with $alpha$ being the attention weight between two words, and the distance of every word to itself is set to 0.
 
 #figure(
-  image("images/attention_example.png"),
-  caption: [Attention map for the sentence "A Republican strategy to counter the re-election of Obama".],
+  grid(
+    columns: 3,
+    image("images/attention_example.png"),
+    image("images/attention_example_filtered.png"),
+    image("images/distance_matrix_example.png")
+  ),
+  caption: [Attention maps and distance matrix for the English sentence "A Republican strategy to counter the re-election of Obama".],
 ) <fig:attention_example>
+
+
 
 == Translation Quality <sec:translation_quality>
 
