@@ -140,7 +140,7 @@ _#ref(<fig:filtration>)_ below shows a visualization of computing persistent hom
     image("images/filtration_visualization.png"), image("images/persistence_diagrams.png", width: 65%),
   ),
   caption: [Visualization of Vietoris-Rips filtration on a set of points in $bb(R)^2$.],
-  placement: auto
+  placement: auto,
 ) <fig:filtration>
 
 Now given two sets of points, we can compute separately their persistence diagrams using persistent homology, but we need a metric to compare the two persistence diagrams. _Wasserstein distance_ is the most common metric for this task. Given persistence diagrams $D_1$ and $D_2$, Wasserstein distance finds the best bijection between points in $D_1$ and $D_2$ and computes the sum of distances between matched points. Formally, let $p$ be a fixed dimension. The $p$-Wasserstein distance between $D_1$ and $D_2$ is defined as:
@@ -210,10 +210,10 @@ Before analyzing the topological features in the attention maps, let's examine a
     columns: 3,
     image("images/attention_example.png"),
     image("images/attention_example_filtered.png"),
-    image("images/distance_matrix_example.png")
+    image("images/distance_matrix_example.png"),
   ),
   caption: [Attention maps and distance matrix for the English sentence "A Republican strategy to counter the re-election of Obama".],
-  placement: auto
+  placement: auto,
 ) <fig:attention_example>
 
 With the distance matrix, the persistence diagram of this attention map can be computed. _#ref(<fig:persistence_diagrams>)_ below shows the persistence diagrams of the same sentence presented in _#ref(<fig:attention_example>)_ in English and French. Note that both persistence diagrams show various zeroth-order topological features, which is expected because different parts of the sentence attend differently to each other. However, first-order topological features seem to be rare and ephemeral in both diagrams, indicating that there are not many loops in the attention maps, and loops tend to be short-lived. These patterns are consistent across most sentences, both in the French-English and Chinese-English datasets.
@@ -221,14 +221,13 @@ With the distance matrix, the persistence diagram of this attention map can be c
 #figure(
   grid(
     columns: 2,
-    image("images/persistence_diagram_en.png"),
-    image("images/persistence_diagram_fr.png")
+    image("images/persistence_diagram_en.png"), image("images/persistence_diagram_fr.png"),
   ),
   caption: [Persistence diagrams for the English sentence "A Republican strategy to counter the re-election of Obama" (left) and its French translation "Une stratégie républicaine pour contrer la réélection d'Obama" (right).],
-  placement: auto
+  placement: auto,
 ) <fig:persistence_diagrams>
 
-_#ref(<tab:summary_stats>)_ below shows the summary statistics for the metrics computed for both the French-English and Chinese-English datasets. The table presents the minimum, maximum, mean, and median values for Wasserstein distances, token counts, and topological features across the 2,000 sentence pairs for each language pair. From the table, note that the majority of topological differences between languages seem to stem from zeroth-order topological features, as we can see that first-order topological features only contribute to smaller than 1.0 Wasserstein distance on average for both datasets. This discovery aligns with the previous observation that first-order topological features are rare in attention maps. Furthermore, the French sentences in our dataset are generally longer than their English counterparts, but the Chinese sentences have about the same number of tokens as their English counterparts. Nevertheless, the model still generates more $H_1 $ features for Chinese sentences than for English sentences on average, indicating that the model attends to Chinese sentences in a more complex manner.
+_#ref(<tab:summary_stats>)_ below shows the summary statistics for the metrics computed for both the French-English and Chinese-English datasets. The table presents the minimum, maximum, mean, and median values for Wasserstein distances, token counts, and topological features across the 2,000 sentence pairs for each language pair. From the table, note that the majority of topological differences between languages seem to stem from zeroth-order topological features, as we can see that first-order topological features only contribute to smaller than 1.0 Wasserstein distance on average for both datasets. This discovery aligns with the previous observation that first-order topological features are rare in attention maps. Furthermore, the French sentences in our dataset are generally longer than their English counterparts, but the Chinese sentences have about the same number of tokens as their English counterparts. Nevertheless, the model still generates more $H_1$ features for Chinese sentences than for English sentences on average, indicating that the model attends to Chinese sentences in a more complex manner.
 
 #figure(
   table(
@@ -253,8 +252,8 @@ _#ref(<tab:summary_stats>)_ below shows the summary statistics for the metrics c
     [$H_1$ Features (Chinese)], [0], [67], [12.6], [11],
   ),
   caption: [Summary statistics for topological metrics computed on the French-English and Chinese-English datasets (2,000 sentence pairs each).],
-  placement: auto
-) <tab:summary_stats> 
+  placement: auto,
+) <tab:summary_stats>
 
 == Translation Quality <sec:translation_quality>
 
