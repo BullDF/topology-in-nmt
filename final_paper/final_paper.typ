@@ -140,6 +140,7 @@ _#ref(<fig:filtration>)_ below shows a visualization of computing persistent hom
     image("images/filtration_visualization.png"), image("images/persistence_diagrams.png", width: 65%),
   ),
   caption: [Visualization of Vietoris-Rips filtration on a set of points in $bb(R)^2$.],
+  placement: auto
 ) <fig:filtration>
 
 Now given two sets of points, we can compute separately their persistence diagrams using persistent homology, but we need a metric to compare the two persistence diagrams. _Wasserstein distance_ is the most common metric for this task. Given persistence diagrams $D_1$ and $D_2$, Wasserstein distance finds the best bijection between points in $D_1$ and $D_2$ and computes the sum of distances between matched points. Formally, let $p$ be a fixed dimension. The $p$-Wasserstein distance between $D_1$ and $D_2$ is defined as:
@@ -212,9 +213,20 @@ Before analyzing the topological features in the attention maps, let's examine a
     image("images/distance_matrix_example.png")
   ),
   caption: [Attention maps and distance matrix for the English sentence "A Republican strategy to counter the re-election of Obama".],
+  placement: auto
 ) <fig:attention_example>
 
+With the distance matrix, the persistence diagram of this attention map can be computed. _#ref(<fig:persistence_diagrams>)_ below shows the persistence diagrams of the same sentence presented in _#ref(<fig:attention_example>)_ in English and French. Note that both persistence diagrams show various zeroth-order topological features, which is expected because different parts of the sentence attend differently to each other. However, first-order topological features seem to be rare and ephemeral in both diagrams, indicating that there are not many loops in the attention maps, and loops tend to be short-lived. These patterns are consistent across most sentences, both in the French-English and Chinese-English datasets.
 
+#figure(
+  grid(
+    columns: 2,
+    image("images/persistence_diagram_en.png"),
+    image("images/persistence_diagram_fr.png")
+  ),
+  caption: [Persistence diagrams for the English sentence "A Republican strategy to counter the re-election of Obama" (left) and its French translation "Une stratégie républicaine pour contrer la réélection d'Obama" (right).],
+  placement: auto
+) <fig:persistence_diagrams>
 
 == Translation Quality <sec:translation_quality>
 
