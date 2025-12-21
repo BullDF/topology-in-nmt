@@ -323,9 +323,17 @@ and the translation is cut off abruptly at a comma, leaving the latter part of t
 
 = Conclusion
 
+To summarize, this paper attempts to understand and interpret Neural Machine Translation (NMT) systems using tools from topological data analysis. A particular focus is placed on analyzing the attention maps that NMT models generate during the translation process. In the study, the NLLB (No Language Left Behind) NMT model with 1.3B parameters developed by Meta is selected for analysis, due to its wide inclusion of languages and powerfulness in this task #cite(<nllb>, style: "apa"). Both French-English and Chinese-English language pairs are selected, considering their typological differences. From the WMT14 and WMT17 MT benchmarks, 2,000 French-English and Chinese-English sentence pairs are acquired, respectively, and the corresponding attention maps are extracted for topological data analysis and the computed Wasserstein distances are correlated with translation quality, measured by BLEU scores.
+
+Before the study, the hypothesis was that higher topological differences, or larger Wasserstein distances between attention maps in the encoder for different languages, are correlated with lower translation quality, or BLEU scores. It is intuitive to formulate this hypothesis because the NMT model is likely to process the two languages in a similar manner and translate better if the attention maps are topologically similar. From the results, we note that this hypothesis is partially supported. Higher topological differences are indeed correlated with lower translation quality, but the correlations are very weak with magnitudes being approximately 0.1. The analysis also shows that the partial correlations between Wasserstein distances and BLEU scores after removing token count are stronger for French-English, but, contrarily, become negligible and statistically insignificant for Chinese-English.
+
 == Future Directions
 
+As mentioned in @sec:error_analysis, the problem that the NLLB model generates truncated Chinese translations from English source sentences is discovered. Therefore, it is recommended that future researchers address this problem by either fixing the bug intrinsically or changing a model completely. After resolving this issue, the Chinese translations can hopefully be more accurate, which would allow a more reliable correlation analysis given better BLEU scores. In addition, this study only looks at French-English and Chinese-English language pairs. Future studies are encouraged to choose other language pairs that have different typological relationships, such as German-English or Arabic-English, to see if the findings in this study generalize.
+
 = Acknowledgements
+
+I am extremely grateful to Professor Gerald Penn and TA Jinman Zhao for giving valuable feedback and conceptual guidance in algebraic topology throughout the process of this research.
 
 // For bibliography, uncomment and create bib.bib file:
 #pagebreak()
