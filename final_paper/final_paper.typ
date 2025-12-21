@@ -327,6 +327,8 @@ is translated into Chinese as
 
 #quote(block: true)[
   苏伊杰已经怀孕四个月,
+
+  _(Su Yijie had been pregnant for four months,)_
 ]
 
 and the translation is cut off abruptly at a comma, leaving the latter part of the original sentence untranslated. This is not an isolated case. In fact, 8 out of the 10 sentences with the lowest BLEU scores suffer from this truncation issue. With some experiment, I figured out that this problem persists across multiple decoding strategies, including greedy decoding and beam search, and is specific in the English to Chinese direction.Hence, there is sufficient evidence to claim that the NLLB model has systematic issues when translating from English to Chinese, which severely affects the translation quality. As a result, the correlation analysis between Wasserstein distances and BLEU scores is rendered inaccurate, thus the conclusion for the Chinese-English language pair should be taken with caution.
