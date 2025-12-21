@@ -137,7 +137,7 @@ _#ref(<fig:filtration>)_ below shows a visualization of computing persistent hom
   grid(
     columns: 2,
     align: center + horizon,
-    image("images/filtration_visualization.png"), image("images/persistence_diagrams.png", width: 65%),
+    image("images/filtration_visualization.png"), image("images/persistence_diagram.png", width: 65%),
   ),
   caption: [Visualization of Vietoris-Rips filtration on a set of points in $bb(R)^2$.],
   placement: auto,
@@ -257,7 +257,49 @@ _#ref(<tab:summary_stats>)_ below shows the summary statistics for the metrics c
 
 == Translation Quality <sec:translation_quality>
 
+Now we examine the translation quality of the NLLB model on the datasets with BLEU scores. The BLEU metric is a widely-used measurement of translation quality that compares the generated translation to a reference sentence. The BLEU score is comprised of a brevity penalty factor that penalizes the translation from being too short, as well as a geometric mean of modified $n$-gram precisions that measures how many $n$-grams in the translation appear in the reference sentence. The final BLEU score ranges from 0 to 100, with higher scores indicating better translation quality #cite(<papineni>, style: "apa").
+
+_#ref(<fig:bleu_distributions>)_ below shows the distributions of BLEU scores for translations in the French-English and Chinese-English datasets. From the plots, we note that the Chinese-English language pair achieves lower BLEU scores on average than the French-English, by approximately 10 points. In particular, perfect translation ($"BLEU" = 100 $) is not uncommon between French and English but rarely seen in Chinese-English translations. This phenomenon is expected because French and English have the same typological roots, while Chinese belongs to a completely different language family. Therefore, it is generally more difficult to translate between Chinese and English than between French and English. A more specific analysis of translation errors is presented in _#ref(<sec:error_analysis>)_.
+
+#figure(
+  grid(
+    rows: 2,
+    image("images/bleu_distributions_fr_en.png"),
+    image("images/bleu_distributions_zh_en.png"),
+  ),
+  caption: [Distributions of BLEU scores for translations in the French-English (top) and Chinese-English (bottom) datasets.],
+  placement: auto,
+) <fig:bleu_distributions>
+
 == Correlation Analysis <sec:correlation_analysis>
+
+After computing the Wasserstein distances and BLEU scores for all 2,000 sentence pairs in the datasets, we conduct a correlation analysis to examine whether Wasserstein distance is an indication of translation quality. _#ref(<fig:wasserstein_bleu>)_ below shows the scatter plots of Wasserstein distances and BLEU scores for the datasets. We notice that in all 6 plots, the Pearson correlation coefficients are all negative, but the magnitudes are all smaller than 0.1. All the coefficients are statistically significant at the significance level of 0.05, with $p$-values less than 0.05. These results suggest that, although the correlations are weak, there is significant evidence that there are negative correlations between Wasserstein distances and BLEU scores in all language directions. This finding partially supports our earlier hypothesis that there is a negative correlation between topological differences and translation quality, as better translations should correspond to more similar attention maps. However, the correlation is not as strong as expected.
+
+#figure(
+  grid(
+    rows: 2,
+    image("images/wasserstein_bleu_fr_en.png"),
+    image("images/wasserstein_bleu_zh_en.png"),
+  ),
+  caption: [Scatter plots showing the relationship between Wasserstein distances and BLEU scores for the French-English (top) and Chinese-English (bottom) datasets.],
+  placement: auto,
+) <fig:wasserstein_bleu>
+
+Now, as shown in _#ref(<tab:summary_stats>)_ above, token count directly reflect the number of zeroth-order topological features in the sentence, which can possibly confound the correlation analysis of Wasserstein distances and BLEU scores. This factor is also intuitively worrisome because longer sentences are generally more difficult to translate correctly, hence lowering translation quality. Therefore, a correlation analysis that controls for the effect of token count is necessary. _#ref(<fig:partial_correlation>)_ below shows the scatter plots for this purpose.
+
+#figure(
+  grid(
+    rows: 2,
+    image("images/partial_correlation_fr_en.png"),
+    image("images/partial_correlation_zh_en.png"),
+  ),
+  caption: [Scatter plots showing the relationship between Wasserstein distances and BLEU scores after controlling for token counts for the French-English (top) and Chinese-English (bottom) datasets.],
+  placement: auto,
+) <fig:partial_correlation>
+
+_#ref(<fig:partial_correlation>)_ shows the scatter plots for the partial correlation between Wasserstein distances and BLEU scores. Given the two variables of interest for correlation analysis and one or more possibly confounding variables, partial correlation first fits two linear regression models that use the confounding variables to predict each variable of interest separately. With the linear regression models comes the residuals of the two variables of interest that the confounding variables cannot explain. Then, we carry out the correlation analysis on the two sets of residuals, attempting to find correlation between the two variables of interest in the parts that are not affected by the confounding variables. In the context of this paper, the two variables of interest are the Wasserstein distances and the BLEU scores, while the only confounding variable is the token count.
+
+
 
 == Error Analysis <sec:error_analysis>
 
