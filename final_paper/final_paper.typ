@@ -305,6 +305,24 @@ On the other hand, the partial correlations for the Chinese-English pair become 
 
 == Error Analysis <sec:error_analysis>
 
+This section makes an effort to analyzing possible explanations for the observed results.
+
+First, we would like to examine the distributions of BLEU scores by delving into assessing the translations that the model generates. As mentioned in @sec:translation_quality, the translations for the Chinese-English pair are generally worse than the translations for the French-English pair, with approximately 10 points lower BLEU scores on average. Therefore, understanding if this is a systematic issue or just random errors is important.
+
+Among the 2,000 Chinese-English sentence pairs, I selected and analyzed the 10 sentence pairs with the lowest average BLEU scores. One severe problem I identified is that many Chinese translations are truncated and incomplete. For example, the English sentence
+
+#quote(block: true)[
+  _At 10:00pm, Sun Yijie, who had been pregnant for four months, was released on bail of NT\$200,000._
+]
+
+is translated into Chinese as
+
+#quote(block: true)[
+  苏伊杰已经怀孕四个月,
+]
+
+and the translation is cut off abruptly at a comma, leaving the latter part of the original sentence untranslated. This is not an isolated case. In fact, 8 out of the 10 sentences with the lowest BLEU scores suffer from this truncation issue. With some experiment, I figured out that this problem persists across multiple decoding strategies, including greedy decoding and beam search, and is specific in the English to Chinese direction.Hence, there is sufficient evidence to claim that the NLLB model has systematic issues when translating from English to Chinese, which severely affects the translation quality. As a result, the correlation analysis between Wasserstein distances and BLEU scores is rendered inaccurate, thus the conclusion for the Chinese-English language pair should be taken with caution.
+
 = Conclusion
 
 == Future Directions
