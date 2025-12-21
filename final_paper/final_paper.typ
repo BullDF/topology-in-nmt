@@ -305,9 +305,7 @@ On the other hand, the partial correlations for the Chinese-English pair become 
 
 == Error Analysis <sec:error_analysis>
 
-This section makes an effort to analyzing possible explanations for the observed results.
-
-First, we would like to examine the distributions of BLEU scores by delving into assessing the translations that the model generates. As mentioned in @sec:translation_quality, the translations for the Chinese-English pair are generally worse than the translations for the French-English pair, with approximately 10 points lower BLEU scores on average. Therefore, understanding if this is a systematic issue or just random errors is important.
+This section makes an effort to analyzing possible explanations for the observed results. Particularly, we would like to examine the distributions of BLEU scores by delving into assessing the translations that the model generates. As mentioned in @sec:translation_quality, the translations for the Chinese-English pair are generally worse than the translations for the French-English pair, with approximately 10 points lower BLEU scores on average. Therefore, understanding if this is a systematic issue or just random errors is important.
 
 Among the 2,000 Chinese-English sentence pairs, I selected and analyzed the 10 sentence pairs with the lowest average BLEU scores. One severe problem I identified is that many Chinese translations are truncated and incomplete. For example, the English sentence
 
