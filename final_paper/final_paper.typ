@@ -299,11 +299,15 @@ Now, as shown in _#ref(<tab:summary_stats>)_ above, token count directly reflect
 
 _#ref(<fig:partial_correlation>)_ shows the scatter plots for the partial correlation between Wasserstein distances and BLEU scores. Given the two variables of interest for correlation analysis and one or more possibly confounding variables, partial correlation first fits two linear regression models that use the confounding variables to predict each variable of interest separately. With the linear regression models comes the residuals of the two variables of interest that the confounding variables cannot explain. Then, we carry out the correlation analysis on the two sets of residuals, attempting to find correlation between the two variables of interest in the parts that are not affected by the confounding variables. In the context of this paper, the two variables of interest are the Wasserstein distances and the BLEU scores, while the only confounding variable is the token count.
 
+From _#ref(<fig:partial_correlation>)_, we note that the partial correlations for the French-English pair are higher than the correlations from _#ref(<fig:wasserstein_bleu>)_ in both language directions, and the partial correlation for the averaged case is the highest. These results are also strongly statistically significant with very small $p$-values. This suggests that, even though French and English sentences have very different token counts as indicated in _#ref(<tab:summary_stats>)_, this does not seem to confound the correlation between topological differences in the attention maps and translation quality. In fact, controlling for token count renders the correlation stronger, which shows that token count is masking the true correlation between Wasserstein distances and BLEU scores. Therefore, we can conclude that preserving topological features in attention maps independently contributes to translation quality between French and English.
 
+On the other hand, the partial correlations for the Chinese-English pair become weaker as shown in _#ref(<fig:partial_correlation>)_, with statistically insignificant $p$-values in the English-Chinese direction and the averaged case. This shows that token count, in the Chinese-English case, is strongly confounding with the correlation between Wasserstein distances and BLEU scores. In other words, the difficulty in translating longer sentences stands out more in this case, possibly overwriting the topological differences in the attention maps that the model generates. We will try to provide reasons for this outcome in _#ref(<sec:error_analysis>)_ below.
 
 == Error Analysis <sec:error_analysis>
 
 = Conclusion
+
+== Future Directions
 
 = Acknowledgements
 
