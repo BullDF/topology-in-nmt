@@ -313,11 +313,9 @@ From @fig:partial_correlation, we note that the partial correlations for the Fre
 
 On the other hand, the partial correlations for the Chinese-English pair become weaker as shown in @fig:partial_correlation, with statistically insignificant $p$-values in the English-Chinese direction and the averaged case. This shows that token count, in the Chinese-English case, is strongly confounding with the correlation between Wasserstein distances and BLEU scores. In other words, the difficulty in translating longer sentences stands out more in this case, possibly overwriting the topological differences in the attention maps that the model generates. We will try to provide reasons for this outcome in @sec:error_analysis below.
 
-== Error Analysis <sec:error_analysis>
+== Model Limitations: Chinese Translation Truncation <sec:error_analysis>
 
-This section makes an effort to analyzing possible explanations for the observed results. Particularly, we would like to examine the distributions of BLEU scores by delving into assessing the translations that the model generates. As mentioned in @sec:translation_quality, the translations for the Chinese-English pair are generally worse than the translations for the French-English pair, with approximately 10 points lower BLEU scores on average. Therefore, understanding if this is a systematic issue or just random errors is important.
-
-Among the 2,000 Chinese-English sentence pairs, I selected and analyzed the 10 sentence pairs with the lowest average BLEU scores. One severe problem I identified is that many Chinese translations are truncated and incomplete. For example, the English sentence
+The Chinese-English results reveal an important limitation of the NLLB model that affects the reliability of our correlation analysis. As noted in @sec:translation_quality, Chinese translations achieve approximately 10 points lower BLEU scores than French translations on average. To understand whether this represents systematic model failure or expected typological difficulty, we analyzed the 10 sentence pairs with the lowest average BLEU scores. Upon investigation, we discovered that the NLLB model frequently truncates English-to-Chinese translations. For example, the English sentence
 
 #quote(block: true)[
   _At 10:00pm, Sun Yijie, who had been pregnant for four months, was released on bail of NT\$200,000._
@@ -331,7 +329,9 @@ is translated into Chinese as
   _(Su Yijie had been pregnant for four months,)_
 ]
 
-and the translation is cut off abruptly at a comma, leaving the latter part of the original sentence untranslated. This is not an isolated case. In fact, 8 out of the 10 sentences with the lowest BLEU scores suffer from this truncation issue. With some experiment, I figured out that this problem persists across multiple decoding strategies, including greedy decoding and beam search, and is specific in the English to Chinese direction.Hence, there is sufficient evidence to claim that the NLLB model has systematic issues when translating from English to Chinese, which severely affects the translation quality. As a result, the correlation analysis between Wasserstein distances and BLEU scores is rendered inaccurate, thus the conclusion for the Chinese-English language pair should be taken with caution.
+The translation terminates abruptly at the comma, omitting the entire second clause. This is not an isolated case. In fact, this truncation issue affects 8 out of the 10 lowest-scoring sentence pairs. Further experimentation confirmed that the problem persists across multiple decoding strategies, including greedy decoding and beam search, and occurs specifically in the English-to-Chinese direction, not Chinese-to-English.
+
+This systematic truncation has two important implications. First, it severely impacts BLEU scores in a way that is unrelated to topological structures, which confounds the correlation analysis for Chinese-English. The partial correlation results in @sec:correlation_analysis should therefore be interpreted cautiously for this language pair. Second, it represents a systematic issue with the NLLB-1.3B model that may be relevant for other researchers working with English-Chinese translation using this model. Despite these complications with Chinese-English, the contrast with the French-English analysis shows that preserving topological structures significantly correlates with translation quality when translations are complete and of high quality.
 
 = Conclusion
 
