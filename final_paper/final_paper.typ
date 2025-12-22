@@ -102,6 +102,8 @@
 
 // Document content starts here
 
+=== #link("https://github.com/BullDF/topology-in-nmt")[Source Code on GitHub] <nonumber>
+
 = Abstract <nonumber>
 
 The transformer architecture revolutionized Natural Language Processing, but understanding how transformers process language remains an active area of research, with NMT being particularly underexplored. This study applies TDA to NMT by analyzing attention maps from the NLLB model on 2,000 sentence pairs each from WMT French-English and Chinese-English datasets. We compute persistent homology on attention-derived graphs and measure cross-language topological similarity using Wasserstein distances between persistence diagrams. For French-English, we find a statistically significant negative correlation between topological dissimilarity and average BLEU scores ($r = -0.132$, $p = 2.84 times 10^(-9)$) after controlling for sentence length, indicating that preserving topological structures independently contributes to translation quality. However, the Chinese-English analysis revealed systematic model limitations that severely affect BLEU scores. The contrast between the statistically significant French-English correlation and the confounded Chinese-English results suggests that preserving topological structures may be particularly important for typologically related language pairs, where the model demonstrates more reliable performance.
