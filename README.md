@@ -5,6 +5,7 @@
 📄 **[Read the Final Paper (PDF)](final_paper/final_paper.pdf)**
 
 Author: Yuwei (Johnny) Meng
+
 Institution: University of Toronto
 
 ---
@@ -24,3 +25,7 @@ This research applies **Topological Data Analysis (TDA)** to Neural Machine Tran
 - **Cross-language isomorphism**: Strong correlation (>0.65) in topological features across languages, supporting Meirom & Bobrowski (2022)'s claim of cross-lingual isomorphism
 - **H₀ dominates H₁**: Connected components (β₀) account for most topological differences; loops (β₁) are rare and ephemeral in attention maps
 - **Chinese-English limitation**: Correlation becomes negligible for Chinese-English (r = -0.020, p = 0.364) due to systematic NLLB model truncation issues
+
+---
+
+© 2025 Yuwei (Johnny) Meng. All rights reserved.
