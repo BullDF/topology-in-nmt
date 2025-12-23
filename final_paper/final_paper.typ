@@ -102,7 +102,7 @@
 
 // Document content starts here
 
-=== #link("https://github.com/BullDF/topology-in-nmt")[Source Code on GitHub] <nonumber>
+=== #link("https://github.com/BullDF/topology-in-nmt")[Link to GitHub Repo] <nonumber>
 
 = Abstract <nonumber>
 
